@@ -7,14 +7,19 @@
     <title>Document</title>
   </head>
   <body>
+    <input type="text" placeholder="Enter location" id="userInput" />
+    <button onclick="getCurrentWeather(userInput.value)">Get Weather</button>
     <div id="location">
       <h1 id="city">City</h1>
-      <h2 id="stateZip"></h2>
-      <h3 id="country"></h3>
+      <h2 id="stateCountry"></h2>
       <h2 id="time"></h2>
     </div>
     <div id="currentWeather">
-      <h1 id="condition"></h1>
+      <div id="currentConditions">
+        <img src="" alt="condition" id="conditionIcon" />
+        <h1 id="conditionText"></h1>
+      </div>
+
       <h1 id="temperature"></h1>
     </div>
   </body>

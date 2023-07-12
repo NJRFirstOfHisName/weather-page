@@ -1,8 +1,9 @@
+const userInput = document.getElementById("userInput");
 const city = document.getElementById("city");
-const stateZip = document.getElementById("stateZip");
-const country = document.getElementById("country");
+const stateCountry = document.getElementById("stateCountry");
 const time = document.getElementById("time");
-const condition = document.getElementById("condition");
+const conditionIcon = document.getElementById("conditionIcon");
+const conditionText = document.getElementById("conditionText");
 const temperature = document.getElementById("temperature");
 
 async function getCurrentWeather(location) {
@@ -12,9 +13,23 @@ async function getCurrentWeather(location) {
   );
   const weatherData = await response.json();
   city.innerText = weatherData.location.name;
+  stateCountry.innerText = `${weatherData.location.region}, ${weatherData.location.country}`;
+  const localTime = weatherData.location.localtime.slice(-5);
+  if (localTime.slice(0, 2) < 12) {
+    time.innerHTML = `${localTime} AM`;
+  } else {
+    time.innerHTML = `${localTime.slice(0, 2) - 12}:${localTime.slice(
+      3,
+      5
+    )} PM`;
+  }
+
+  conditionIcon.src = weatherData.current.condition.icon;
+  conditionText.innerHTML = weatherData.current.condition.text;
+
+  temperature.innerText = `${weatherData.current.temp_f}°F`;
 
   console.log(weatherData);
-  return weatherData;
 }
 
-const currentWeather = getCurrentWeather(80525);
+// getCurrentWeather(userInput.value);
