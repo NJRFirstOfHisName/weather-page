@@ -1,0 +1,36 @@
+@media (max-width: 600px) {
+  .grid-container {
+    grid-template-areas:
+      "header header header header header header"
+      "left left left left left left"
+      "middle middle middle middle middle middle"
+      "right right right right right right";
+  }
+}
+
+body {
+  display: grid;
+  grid-template-areas:
+    "header header header header header header"
+    "left middle middle middle middle right";
+}
+
+.header {
+  grid-area: header;
+  background-color: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+}
+
+.environment {
+  grid-area: left;
+}
+
+.weather {
+  grid-area: middle;
+}
+
+.forecast {
+  grid-area: right;
+}

@@ -4,23 +4,34 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="index.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
-    <input type="text" placeholder="Enter location" id="userInput" />
-    <button onclick="getCurrentWeather(userInput.value)">Get Weather</button>
-    <div id="location">
-      <h1 id="city">City</h1>
-      <h2 id="stateCountry"></h2>
-      <h2 id="time"></h2>
+    <div class="header">
+      <input type="text" placeholder="Enter location" id="userInput" />
+      <button onclick="getCurrentWeather(userInput.value)">Get Weather</button>
     </div>
-    <div id="currentWeather">
-      <div id="currentConditions">
-        <img src="" alt="condition" id="conditionIcon" />
-        <h1 id="conditionText"></h1>
+    <div class="environment">
+      <p class="windSpeed"></p>
+      <p class="humidity"></p>
+      <p class="uvIndex"></p>
+      <p class="airQuality"></p>
+    </div>
+    <div class="weather" style="display: none">
+      <div class="location">
+        <h1 class="city">City</h1>
+        <h2 class="stateCountry"></h2>
+        <h2 class="time"></h2>
       </div>
-
-      <h1 id="temperature"></h1>
+      <div class="currentWeather">
+        <div class="currentConditions">
+          <img src="" alt="condition" class="conditionIcon" />
+          <h1 class="conditionText"></h1>
+        </div>
+        <h1 class="temperature"></h1>
+      </div>
     </div>
+    <div class="forecast"></div>
   </body>
 </html>
