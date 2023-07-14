@@ -1,6 +1,8 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-family: "Victor Mono", monospace;
 }
 
 .container {
@@ -16,14 +18,14 @@
 .environment,
 .weather,
 .forecast {
-  border-radius: 10px;
+  border-radius: 20px;
   margin: 15px;
   padding: 5px;
 }
 
 .header {
   grid-area: header;
-  padding: 30px;
+  padding: 20px;
   text-align: center;
   font-size: 35px;
 }
@@ -31,6 +33,13 @@
 .header,
 .footer {
   background-color: #b3f497;
+}
+
+button,
+input {
+  border: none;
+  background-color: white;
+  font-size: large;
 }
 
 h1 {
@@ -41,11 +50,27 @@ h1 {
   grid-area: left;
 }
 
-.weather {
-  grid-area: middle;
+.environment,
+.forecast {
+  margin: 40px 5px;
+  font-size: large;
 }
 
-.location {
+.environment p {
+  margin: 20px;
+}
+
+.weather {
+  grid-area: middle;
+  text-align: center;
+}
+
+.weather div div {
+  margin: 10px;
+}
+
+.conditionIcon {
+  height: 100px;
 }
 
 .forecast {
@@ -53,28 +78,39 @@ h1 {
 }
 
 .forecastDiv {
-  margin: 5px;
+  margin: 30px 5px;
   border-radius: 10px;
   background-color: rgb(246, 246, 117);
   padding: 5px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.forecastDiv p {
+  margin: 10px;
 }
 
 .footer {
   grid-area: footer;
   padding: 10px;
   text-align: end;
-  position: absolute;
+  position: sticky;
   bottom: 0px;
   width: 100%;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .container {
     grid-template-areas:
       "header header header header header header"
-      "left left left left left left"
       "middle middle middle middle middle middle"
+      "left left left left left left"
       "right right right right right right"
       "footer footer footer footer footer footer";
+    grid-template-rows: auto;
+    height: fit-content;
+  }
+  .container div {
+    margin: 5px;
   }
 }

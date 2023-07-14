@@ -6,12 +6,23 @@
     <script src="index.js" type="module" defer></script>
     <script src="weatherConditions.js" type="module" defer></script>
     <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto&family=Victor+Mono&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <input type="text" placeholder="Enter location" class="userInput" />
+        <input
+          type="text"
+          placeholder="Enter location"
+          class="userInput"
+          autofocus
+        />
         <button class="submitBtn">Get Weather</button>
       </div>
       <div class="environment">
@@ -24,7 +35,7 @@
       <div class="weather">
         <h1>Today's Weather</h1>
         <div class="location">
-          <h2 class="city"></h1>
+          <h2 class="city"></h2>
           <h2 class="stateCountry"></h2>
           <h2 class="time"></h2>
         </div>
@@ -36,9 +47,9 @@
               class="conditionIcon"
               style="display: none"
             />
-            <h2 class="conditionText"></h1>
+            <h2 class="conditionText"></h2>
           </div>
-          <h2 class="temperature"></h1>
+          <h2 class="temperature"></h2>
         </div>
       </div>
       <div class="forecast">

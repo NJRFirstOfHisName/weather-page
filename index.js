@@ -37,7 +37,11 @@ function printCurrentWeather(weatherData) {
   const temperature = document.querySelector(".temperature");
 
   city.innerText = weatherData.location.name;
-  stateCountry.innerText = `${weatherData.location.region}, ${weatherData.location.country}`;
+  if (weatherData.location.region) {
+    stateCountry.innerText = `${weatherData.location.region}, ${weatherData.location.country}`;
+  } else {
+    stateCountry.innerText = `${weatherData.location.country}`;
+  }
   const localTime = weatherData.location.localtime.slice(-5);
   if (localTime.slice(0, 2) < 12) {
     time.innerText = `${localTime} AM`;
@@ -64,29 +68,33 @@ function printForecast(weatherData) {
 
     dayDiv.style.background = findColor(forecastData.day.condition.code);
 
+    const dateIcon = document.createElement("div");
     const day = document.createElement("p");
     day.className = "forecastDate";
     day.innerText = forecastData.date;
-    dayDiv.appendChild(day);
+    dateIcon.appendChild(day);
 
-    const condition = document.createElement("div");
     const conditionIcon = document.createElement("img");
     conditionIcon.src = forecastData.day.condition.icon;
-    condition.appendChild(conditionIcon);
-    const conditionText = document.createElement("p");
+    dateIcon.appendChild(conditionIcon);
+    dayDiv.appendChild(dateIcon);
+
+    const temps = document.createElement("div");
+    const conditionText = document.createElement("h3");
     conditionText.innerText = forecastData.day.condition.text;
-    condition.appendChild(conditionText);
-    dayDiv.appendChild(condition);
+    conditionText.style.fontWeight = "bold";
+    temps.appendChild(conditionText);
 
     const minTemp = document.createElement("p");
     minTemp.className = "minTemp";
     minTemp.innerText = `Low: ${forecastData.day.mintemp_f}`;
-    dayDiv.appendChild(minTemp);
+    temps.appendChild(minTemp);
 
     const maxTemp = document.createElement("p");
     maxTemp.className = "maxTemp";
     maxTemp.innerText = `High: ${forecastData.day.maxtemp_f}`;
-    dayDiv.appendChild(maxTemp);
+    temps.appendChild(maxTemp);
+    dayDiv.appendChild(temps);
 
     forecastDiv.append(dayDiv);
   }
@@ -108,23 +116,28 @@ function setBackgrounds(weatherData) {
 
 async function getWeatherData(location) {
   const response = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes`,
+    `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
     { mode: "cors" }
   );
   const weatherData = await response.json();
-
-  console.log(weatherData);
 
   printCurrentWeather(weatherData);
   printForecast(weatherData);
   printCurrentConditions(weatherData);
   setBackgrounds(weatherData);
+
+  console.log(weatherData);
 }
 
 const submitBtn = document.querySelector(".submitBtn");
+const userInput = document.querySelector(".userInput");
 submitBtn.addEventListener("click", () => {
-  const userInput = document.querySelector(".userInput").value;
-  getWeatherData(userInput);
+  getWeatherData(userInput.value);
+  userInput.value = "";
 });
 
-getWeatherData(80241);
+userInput.addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    submitBtn.click();
+  }
+});
