@@ -14,22 +14,27 @@
         <button onclick="getWeatherData(userInput.value)">Get Weather</button>
       </div>
       <div class="environment">
-        <h1>Environmental Conditions</h1>
+        <h1>Conditions</h1>
         <p class="windSpeed"></p>
         <p class="humidity"></p>
         <p class="uvIndex"></p>
         <p class="airQuality"></p>
       </div>
-      <div class="weather" style="display: none">
+      <div class="weather">
         <h1>Today's Weather</h1>
         <div class="location">
-          <h1 class="city">City</h1>
+          <h1 class="city"></h1>
           <h2 class="stateCountry"></h2>
           <h2 class="time"></h2>
         </div>
         <div class="currentWeather">
           <div class="currentConditions">
-            <img src="" alt="condition" class="conditionIcon" />
+            <img
+              src=""
+              alt="condition"
+              class="conditionIcon"
+              style="display: none"
+            />
             <h1 class="conditionText"></h1>
           </div>
           <h1 class="temperature"></h1>

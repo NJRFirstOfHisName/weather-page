@@ -13,7 +13,6 @@ function printCurrentConditions(weatherData) {
 }
 
 function printCurrentWeather(weatherData) {
-  const weather = document.querySelector(".weather");
   const city = document.querySelector(".city");
   const stateCountry = document.querySelector(".stateCountry");
   const time = document.querySelector(".time");
@@ -33,10 +32,9 @@ function printCurrentWeather(weatherData) {
     )} PM`;
   }
   conditionIcon.src = weatherData.current.condition.icon;
+  conditionIcon.style.display = "";
   conditionText.innerText = weatherData.current.condition.text;
   temperature.innerText = `${weatherData.current.temp_f}°F`;
-
-  weather.style.display = "";
 }
 
 function printForecast(weatherData) {
@@ -87,6 +85,8 @@ async function getWeatherData(location) {
   printCurrentWeather(weatherData);
   printForecast(weatherData);
   printCurrentConditions(weatherData);
+
+  document.querySelector("container").style.display = "";
 }
 
-getWeatherData(80525);
+// getWeatherData(80525);
