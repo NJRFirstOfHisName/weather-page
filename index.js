@@ -1,4 +1,20 @@
-// const userInput = document.getElementById("userInput");
+// eslint-disable-next-line import/extensions
+import { weatherConditions } from "./weatherConditions.js";
+
+function findColor(day) {
+  const result = weatherConditions.find(({ code }) => code === day);
+  return result.color;
+}
+
+function adjust(color, amount) {
+  return `#${color
+    .replace(/^#/, "")
+    .replace(/../g, (color) =>
+      `0${Math.min(255, Math.max(0, parseInt(color, 16) + amount)).toString(
+        16
+      )}`.substr(-2)
+    )}`;
+}
 
 function printCurrentConditions(weatherData) {
   const windSpeed = document.querySelector(".windSpeed");
@@ -39,11 +55,14 @@ function printCurrentWeather(weatherData) {
 
 function printForecast(weatherData) {
   const forecastDiv = document.querySelector(".forecast");
+  forecastDiv.innerHTML = "<h1>Forecast</h1>";
   for (let i = 1; i < 3; i += 1) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "forecastDiv";
     dayDiv.style.display = "grid";
     const forecastData = weatherData.forecast.forecastday[i];
+
+    dayDiv.style.background = findColor(forecastData.day.condition.code);
 
     const day = document.createElement("p");
     day.className = "forecastDate";
@@ -73,6 +92,20 @@ function printForecast(weatherData) {
   }
 }
 
+function setBackgrounds(weatherData) {
+  const container = document.querySelector(".container");
+  const environment = document.querySelector(".environment");
+  const weather = document.querySelector(".weather");
+  const forecast = document.querySelector(".forecast");
+
+  const today = weatherData.current.condition.code;
+  const todayColor = findColor(today);
+  container.style.background = todayColor;
+  environment.style.background = adjust(todayColor, 50);
+  weather.style.background = adjust(todayColor, 70);
+  forecast.style.background = adjust(todayColor, 50);
+}
+
 async function getWeatherData(location) {
   const response = await fetch(
     `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes`,
@@ -85,8 +118,13 @@ async function getWeatherData(location) {
   printCurrentWeather(weatherData);
   printForecast(weatherData);
   printCurrentConditions(weatherData);
-
-  document.querySelector("container").style.display = "";
+  setBackgrounds(weatherData);
 }
 
-// getWeatherData(80525);
+const submitBtn = document.querySelector(".submitBtn");
+submitBtn.addEventListener("click", () => {
+  const userInput = document.querySelector(".userInput").value;
+  getWeatherData(userInput);
+});
+
+getWeatherData(80241);

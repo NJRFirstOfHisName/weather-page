@@ -5,26 +5,32 @@
 
 .container {
   display: grid;
+  grid-template-rows: 100px 1fr 50px;
   grid-template-areas:
     "header header header header header header"
     "left middle middle middle middle right"
     "footer footer footer footer footer footer";
-  gap: 10px;
+  height: 100vh;
 }
 
 .environment,
 .weather,
 .forecast {
-  border: 1px solid black;
   border-radius: 10px;
+  margin: 15px;
+  padding: 5px;
 }
 
 .header {
   grid-area: header;
-  background-color: #f1f1f1;
   padding: 30px;
   text-align: center;
   font-size: 35px;
+}
+
+.header,
+.footer {
+  background-color: #b3f497;
 }
 
 h1 {
@@ -39,6 +45,9 @@ h1 {
   grid-area: middle;
 }
 
+.location {
+}
+
 .forecast {
   grid-area: right;
 }
@@ -47,11 +56,11 @@ h1 {
   margin: 5px;
   border-radius: 10px;
   background-color: rgb(246, 246, 117);
+  padding: 5px;
 }
 
 .footer {
   grid-area: footer;
-  background-color: #f1f1f1;
   padding: 10px;
   text-align: end;
   position: absolute;

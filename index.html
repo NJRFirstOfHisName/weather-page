@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="index.js" defer></script>
+    <script src="index.js" type="module" defer></script>
+    <script src="weatherConditions.js" type="module" defer></script>
     <link rel="stylesheet" href="style.css" />
     <title>Document</title>
   </head>
   <body>
     <div class="container">
       <div class="header">
-        <input type="text" placeholder="Enter location" id="userInput" />
-        <button onclick="getWeatherData(userInput.value)">Get Weather</button>
+        <input type="text" placeholder="Enter location" class="userInput" />
+        <button class="submitBtn">Get Weather</button>
       </div>
       <div class="environment">
         <h1>Conditions</h1>
@@ -23,7 +24,7 @@
       <div class="weather">
         <h1>Today's Weather</h1>
         <div class="location">
-          <h1 class="city"></h1>
+          <h2 class="city"></h1>
           <h2 class="stateCountry"></h2>
           <h2 class="time"></h2>
         </div>
@@ -35,9 +36,9 @@
               class="conditionIcon"
               style="display: none"
             />
-            <h1 class="conditionText"></h1>
+            <h2 class="conditionText"></h1>
           </div>
-          <h1 class="temperature"></h1>
+          <h2 class="temperature"></h1>
         </div>
       </div>
       <div class="forecast">
