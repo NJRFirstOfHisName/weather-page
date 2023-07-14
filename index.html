@@ -8,34 +8,42 @@
     <title>Document</title>
   </head>
   <body>
-    <div class="header">
-      <input type="text" placeholder="Enter location" id="userInput" />
-      <button onclick="getWeatherData(userInput.value)">Get Weather</button>
-    </div>
-    <div class="environment">
-      <h1>Environmental Conditions</h1>
-      <p class="windSpeed"></p>
-      <p class="humidity"></p>
-      <p class="uvIndex"></p>
-      <p class="airQuality"></p>
-    </div>
-    <div class="weather" style="display: none">
-      <h1>Today's Weather</h1>
-      <div class="location">
-        <h1 class="city">City</h1>
-        <h2 class="stateCountry"></h2>
-        <h2 class="time"></h2>
+    <div class="container">
+      <div class="header">
+        <input type="text" placeholder="Enter location" id="userInput" />
+        <button onclick="getWeatherData(userInput.value)">Get Weather</button>
       </div>
-      <div class="currentWeather">
-        <div class="currentConditions">
-          <img src="" alt="condition" class="conditionIcon" />
-          <h1 class="conditionText"></h1>
+      <div class="environment">
+        <h1>Environmental Conditions</h1>
+        <p class="windSpeed"></p>
+        <p class="humidity"></p>
+        <p class="uvIndex"></p>
+        <p class="airQuality"></p>
+      </div>
+      <div class="weather" style="display: none">
+        <h1>Today's Weather</h1>
+        <div class="location">
+          <h1 class="city">City</h1>
+          <h2 class="stateCountry"></h2>
+          <h2 class="time"></h2>
         </div>
-        <h1 class="temperature"></h1>
+        <div class="currentWeather">
+          <div class="currentConditions">
+            <img src="" alt="condition" class="conditionIcon" />
+            <h1 class="conditionText"></h1>
+          </div>
+          <h1 class="temperature"></h1>
+        </div>
       </div>
-    </div>
-    <div class="forecast">
-      <h1>Forecast</h1>
+      <div class="forecast">
+        <h1>Forecast</h1>
+      </div>
+      <div class="footer">
+        Powered by
+        <a href="https://www.weatherapi.com/" title="Free Weather API"
+          >WeatherAPI.com</a
+        >
+      </div>
     </div>
   </body>
 </html>

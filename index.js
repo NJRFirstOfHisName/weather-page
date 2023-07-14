@@ -44,6 +44,7 @@ function printForecast(weatherData) {
   for (let i = 1; i < 3; i += 1) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "forecastDiv";
+    dayDiv.style.display = "grid";
     const forecastData = weatherData.forecast.forecastday[i];
 
     const day = document.createElement("p");
@@ -62,18 +63,13 @@ function printForecast(weatherData) {
 
     const minTemp = document.createElement("p");
     minTemp.className = "minTemp";
-    minTemp.innerText = forecastData.day.mintemp_f;
+    minTemp.innerText = `Low: ${forecastData.day.mintemp_f}`;
     dayDiv.appendChild(minTemp);
 
     const maxTemp = document.createElement("p");
     maxTemp.className = "maxTemp";
-    maxTemp.innerText = forecastData.day.maxtemp_f;
+    maxTemp.innerText = `High: ${forecastData.day.maxtemp_f}`;
     dayDiv.appendChild(maxTemp);
-
-    const avgTemp = document.createElement("p");
-    avgTemp.className = "avgTemp";
-    avgTemp.innerText = forecastData.day.avgtemp_f;
-    dayDiv.appendChild(avgTemp);
 
     forecastDiv.append(dayDiv);
   }

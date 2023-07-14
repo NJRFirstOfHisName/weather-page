@@ -1,18 +1,21 @@
-@media (max-width: 600px) {
-  .grid-container {
-    grid-template-areas:
-      "header header header header header header"
-      "left left left left left left"
-      "middle middle middle middle middle middle"
-      "right right right right right right";
-  }
+* {
+  box-sizing: border-box;
 }
 
-body {
+.container {
   display: grid;
   grid-template-areas:
     "header header header header header header"
-    "left middle middle middle middle right";
+    "left middle middle middle middle right"
+    "footer footer footer footer footer footer";
+  gap: 10px;
+}
+
+.environment,
+.weather,
+.forecast {
+  border: 1px solid black;
+  border-radius: 10px;
 }
 
 .header {
@@ -33,4 +36,28 @@ body {
 
 .forecast {
   grid-area: right;
+}
+
+.forecastDiv {
+  margin: 5px;
+  border-radius: 10px;
+  background-color: rgb(246, 246, 117);
+}
+
+.footer {
+  grid-area: footer;
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: end;
+}
+
+@media (max-width: 600px) {
+  .container {
+    grid-template-areas:
+      "header header header header header header"
+      "left left left left left left"
+      "middle middle middle middle middle middle"
+      "right right right right right right"
+      "footer footer footer footer footer footer";
+  }
 }
