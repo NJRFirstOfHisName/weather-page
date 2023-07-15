@@ -254,3 +254,6 @@ userInput.addEventListener("keypress", (e) => {
     submitBtn.click();
   }
 });
+
+// On page load, gets local weather using user's IP address.
+getWeatherData("auto:ip");
