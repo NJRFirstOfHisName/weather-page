@@ -21,11 +21,15 @@ function printCurrentConditions(weatherData) {
   const humidity = document.querySelector(".humidity");
   const uvIndex = document.querySelector(".uvIndex");
   const airQuality = document.querySelector(".airQuality");
+  const pressure = document.querySelector(".pressure");
+  const precipitation = document.querySelector(".precipitation");
 
   windSpeed.innerText = `Wind speed: ${weatherData.current.wind_mph} MPH ${weatherData.current.wind_dir}`;
   humidity.innerText = `Humidity: ${weatherData.current.humidity}%`;
   uvIndex.innerText = `UV index: ${weatherData.current.uv}`;
   airQuality.innerText = `Air quality: ${weatherData.current.air_quality["us-epa-index"]}`;
+  pressure.innerText = `Atmospheric pressure: ${weatherData.current.pressure_in} inHg.`;
+  precipitation.innerText = `Expected precipitation: ${weatherData.current.precip_in}"`;
 }
 
 function printCurrentWeather(weatherData) {
@@ -35,6 +39,7 @@ function printCurrentWeather(weatherData) {
   const conditionIcon = document.querySelector(".conditionIcon");
   const conditionText = document.querySelector(".conditionText");
   const temperature = document.querySelector(".temperature");
+  const feelsLike = document.querySelector(".feelsLike");
 
   city.innerText = weatherData.location.name;
   if (weatherData.location.region) {
@@ -60,6 +65,9 @@ function printCurrentWeather(weatherData) {
   conditionIcon.style.display = "";
   conditionText.innerText = weatherData.current.condition.text;
   temperature.innerText = `${weatherData.current.temp_f}°F`;
+  feelsLike.innerText = `Feels like ${Math.trunc(
+    weatherData.current.feelslike_f
+  )}°F`;
 }
 
 function printForecast(weatherData) {
