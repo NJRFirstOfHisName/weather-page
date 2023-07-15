@@ -43,13 +43,18 @@ function printCurrentWeather(weatherData) {
     stateCountry.innerText = `${weatherData.location.country}`;
   }
   const localTime = weatherData.location.localtime.slice(-5);
-  if (localTime.slice(0, 2) < 12) {
-    time.innerText = `${localTime} AM`;
+  const hour = localTime.slice(0, 2);
+  const minute = localTime.slice(3, 5);
+  if (hour < 12) {
+    if (hour > 0) {
+      time.innerText = `${localTime} AM`;
+    } else {
+      time.innerText = `12:${minute} AM`;
+    }
+  } else if (hour - 12 > 0) {
+    time.innerText = `${hour - 12}:${minute} PM`;
   } else {
-    time.innerText = `${localTime.slice(0, 2) - 12}:${localTime.slice(
-      3,
-      5
-    )} PM`;
+    time.innerText = `12:${minute} PM`;
   }
   conditionIcon.src = weatherData.current.condition.icon;
   conditionIcon.style.display = "";
