@@ -12,7 +12,8 @@
     "header header header header header header"
     "left middle middle middle middle right"
     "footer footer footer footer footer footer";
-  height: 100vh;
+  min-height: 100vh;
+  position: relative;
 }
 
 .environment,
@@ -75,6 +76,7 @@ h1 {
 
 .forecast {
   grid-area: right;
+  padding-bottom: 1em;
 }
 
 .forecastDiv {
@@ -94,8 +96,8 @@ h1 {
   grid-area: footer;
   padding: 10px;
   text-align: end;
-  position: sticky;
-  bottom: 0px;
+  position: absolute;
+  bottom: 0;
   width: 100%;
 }
 

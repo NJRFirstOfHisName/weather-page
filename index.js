@@ -114,6 +114,28 @@ function setBackgrounds(weatherData) {
   forecast.style.background = adjust(todayColor, 50);
 }
 
+function printAlert(alertData) {
+  const alertDiv = document.createElement("div");
+  alertDiv.className = "weatherAlert";
+
+  const headline = document.createElement("h2");
+  headline.innerText = alertData.headline;
+  alertDiv.appendChild(headline);
+
+  const description = document.createElement("p");
+  description.innerText = alertData.desc;
+  alertDiv.appendChild(description);
+
+  if (alertData.instruction) {
+    const instruction = document.createElement("p");
+    instruction.innerText = alertData.instruction;
+    alertDiv.appendChild(instruction);
+  }
+
+  const currentWeather = document.querySelector(".currentWeather");
+  currentWeather.appendChild(alertDiv);
+}
+
 async function getWeatherData(location) {
   const response = await fetch(
     `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
@@ -125,6 +147,15 @@ async function getWeatherData(location) {
   printForecast(weatherData);
   printCurrentConditions(weatherData);
   setBackgrounds(weatherData);
+
+  const alertDiv = document.querySelector(".weatherAlert");
+  if (alertDiv) {
+    alertDiv.remove();
+  }
+
+  if (weatherData.alerts.alert[0]) {
+    printAlert(weatherData.alerts.alert[0]);
+  }
 
   console.log(weatherData);
 }
