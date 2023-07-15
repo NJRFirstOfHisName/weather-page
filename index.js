@@ -119,6 +119,16 @@ function setBackgrounds(weatherData) {
   forecast.style.background = adjust(todayColor, 50);
 }
 
+function toggleHidden() {
+  const hiddenDiv = document.querySelector(".hiddenDiv");
+  const hidden = hiddenDiv.getAttribute("hidden");
+  if (hidden) {
+    hiddenDiv.removeAttribute("hidden");
+  } else {
+    hiddenDiv.setAttribute("hidden", "hidden");
+  }
+}
+
 function printAlert(alertData) {
   const alertDiv = document.createElement("div");
   alertDiv.className = "weatherAlert";
@@ -127,16 +137,27 @@ function printAlert(alertData) {
   headline.innerText = alertData.headline;
   alertDiv.appendChild(headline);
 
+  const alertBtn = document.createElement("button");
+  alertBtn.className = "alertBtn";
+  alertBtn.innerText = "Show More";
+  alertBtn.onclick = toggleHidden;
+  alertDiv.appendChild(alertBtn);
+
+  const hiddenDiv = document.createElement("div");
+  hiddenDiv.className = "hiddenDiv";
+  hiddenDiv.setAttribute("hidden", "hidden");
+
   const description = document.createElement("p");
   description.innerText = alertData.desc;
-  alertDiv.appendChild(description);
+  hiddenDiv.appendChild(description);
 
   if (alertData.instruction) {
     const instruction = document.createElement("p");
     instruction.innerText = alertData.instruction;
-    alertDiv.appendChild(instruction);
+    hiddenDiv.appendChild(instruction);
   }
 
+  alertDiv.appendChild(hiddenDiv);
   const currentWeather = document.querySelector(".currentWeather");
   currentWeather.appendChild(alertDiv);
 }

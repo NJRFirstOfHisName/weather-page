@@ -74,9 +74,12 @@ h1 {
   height: 100px;
 }
 
+.alertBtn {
+  background-color: rgb(189, 142, 209);
+}
+
 .forecast {
   grid-area: right;
-  padding-bottom: 1em;
 }
 
 .forecastDiv {
