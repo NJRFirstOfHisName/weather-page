@@ -1,14 +1,15 @@
 import format from "date-fns/format";
 import "./style.css";
-// eslint-disable-next-line import/extensions
 import parseISO from "date-fns/parseISO";
-import { weatherConditions } from "./weatherConditions.js";
+import { weatherConditions } from "./weatherConditions";
 
+// Searches weatherConditions.js to find the appropriate background color for the weather.
 function findColor(day) {
   const result = weatherConditions.find(({ code }) => code === day);
   return result.color;
 }
 
+// Stolen from Stack Exhange, allows the lightening or darkening of a hex color by percentage. Used to generate background colors.
 function adjust(color, amount) {
   return `#${color
     .replace(/^#/, "")
@@ -19,6 +20,7 @@ function adjust(color, amount) {
     )}`;
 }
 
+// Prints all fields in the center "Conditions" card.
 function printCurrentConditions(weatherData) {
   const windSpeed = document.querySelector(".windSpeed");
   const humidity = document.querySelector(".humidity");
@@ -35,6 +37,7 @@ function printCurrentConditions(weatherData) {
   precipitation.innerText = `Expected precipitation: ${weatherData.current.precip_in}"`;
 }
 
+// Prints all fields in the "Today's Weather" card
 function printCurrentWeather(weatherData) {
   const city = document.querySelector(".city");
   const stateCountry = document.querySelector(".stateCountry");
@@ -45,6 +48,7 @@ function printCurrentWeather(weatherData) {
   const feelsLike = document.querySelector(".feelsLike");
   const todayDate = document.querySelector(".todayDate");
 
+  // Not all results from the API have a 'region' field, this ensures there are no hanging commas if region is empty
   city.innerText = weatherData.location.name;
   if (weatherData.location.region) {
     stateCountry.innerText = `${weatherData.location.region}, ${weatherData.location.country}`;
@@ -52,9 +56,11 @@ function printCurrentWeather(weatherData) {
     stateCountry.innerText = `${weatherData.location.country}`;
   }
 
+  // Uses date-fn to make the date prettier.
   const today = weatherData.location.localtime.slice(0, 10);
   todayDate.innerText = format(parseISO(today), "eee, MMMM do yyyy");
 
+  // First checks whether it's AM or PM, then checks whether it's noon or midnight. Probably could have done that the other way around.
   const localTime = weatherData.location.localtime.slice(-5);
   const hour = localTime.slice(0, 2);
   const minute = localTime.slice(3, 5);
@@ -79,6 +85,7 @@ function printCurrentWeather(weatherData) {
   )}°F`;
 }
 
+// Creates divs for and prints forecast cards.
 function printForecast(weatherData) {
   const forecastDiv = document.querySelector(".forecast");
   forecastDiv.innerHTML = "<h1>Forecast</h1>";
@@ -122,6 +129,7 @@ function printForecast(weatherData) {
   }
 }
 
+// Checks the current weather and fetches the appropriate background color from weatherConditions.js, then brigtens the color for use in the backgrounds of cards.
 function setBackgrounds(weatherData) {
   const container = document.querySelector(".container");
   const environment = document.querySelector(".environment");
@@ -136,6 +144,7 @@ function setBackgrounds(weatherData) {
   forecast.style.background = adjust(todayColor, 50);
 }
 
+// When there is a weather alert, this is used by the button that's generated to show or hide the extended details of the alert.
 function toggleHidden() {
   const hiddenDiv = document.querySelector(".hiddenDiv");
   const hidden = hiddenDiv.getAttribute("hidden");
@@ -146,6 +155,7 @@ function toggleHidden() {
   }
 }
 
+// If there is a weather alert, this is called to display the information at the bottom of 'Today's Weather'. By default only the headline and button aren't hidden.
 function printAlert(alertData) {
   const alertDiv = document.createElement("div");
   alertDiv.className = "weatherAlert";
@@ -168,6 +178,7 @@ function printAlert(alertData) {
   description.innerText = alertData.desc;
   hiddenDiv.appendChild(description);
 
+  // Not all alerts have an instruction property
   if (alertData.instruction) {
     const instruction = document.createElement("p");
     instruction.innerText = alertData.instruction;
@@ -175,10 +186,11 @@ function printAlert(alertData) {
   }
 
   alertDiv.appendChild(hiddenDiv);
-  const currentWeather = document.querySelector(".currentWeather");
-  currentWeather.appendChild(alertDiv);
+  const weather = document.querySelector(".weather");
+  weather.appendChild(alertDiv);
 }
 
+// Calls the API and returns the result as a promise. The only errors that get caught here are issues with the API call, not the response.
 async function callApi(location) {
   let response;
   try {
@@ -187,15 +199,17 @@ async function callApi(location) {
       { mode: "cors" }
     );
   } catch (error) {
-    console.log("Error: ", error);
+    throw new Error("Error: ", error);
   }
   return response;
 }
 
+// Main function that is called when the "Get Weather" button is pressed.
 async function getWeatherData(location) {
   const invalid = document.querySelector(".invalid");
   const hidden = invalid.getAttribute("hidden");
 
+  // Calls the API. If there is a problem with the response, un-hides a message showing the location was invalid. Otherwise calls each of the printing functions.
   const apiData = await callApi(location);
   if (!apiData.ok) {
     if (hidden) {
@@ -209,23 +223,23 @@ async function getWeatherData(location) {
     printCurrentConditions(weatherData);
     setBackgrounds(weatherData);
 
+    // First checks to see if there is an existing alert on the page and removes it. Then if, the new location has an alert, calls the function to print it.
     const alertDiv = document.querySelector(".weatherAlert");
     if (alertDiv) {
       alertDiv.remove();
     }
-
     if (weatherData.alerts.alert[0]) {
       printAlert(weatherData.alerts.alert[0]);
     }
 
+    // If the Invalid Location message is visible, hides it.
     if (!hidden) {
       invalid.setAttribute("hidden", "hidden");
     }
-
-    console.log(weatherData);
   }
 }
 
+// Event listeners for user input
 const submitBtn = document.querySelector(".submitBtn");
 const userInput = document.querySelector(".userInput");
 submitBtn.addEventListener("click", () => {
