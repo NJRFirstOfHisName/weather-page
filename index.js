@@ -166,7 +166,7 @@ async function callApi(location) {
   let response;
   try {
     response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
+      `https://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
       { mode: "cors" }
     );
   } catch (error) {
