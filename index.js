@@ -136,35 +136,60 @@ function printAlert(alertData) {
   currentWeather.appendChild(alertDiv);
 }
 
+async function callApi(location) {
+  let response;
+  try {
+    response = await fetch(
+      `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
+      { mode: "cors" }
+    );
+  } catch (error) {
+    console.log("Error: ", error);
+  }
+  return response;
+}
+
 async function getWeatherData(location) {
-  const response = await fetch(
-    `http://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
-    { mode: "cors" }
-  );
-  const weatherData = await response.json();
+  const invalid = document.querySelector(".invalid");
+  const hidden = invalid.getAttribute("hidden");
 
-  printCurrentWeather(weatherData);
-  printForecast(weatherData);
-  printCurrentConditions(weatherData);
-  setBackgrounds(weatherData);
+  const apiData = await callApi(location);
+  if (!apiData.ok) {
+    if (hidden) {
+      invalid.removeAttribute("hidden");
+    }
+  } else {
+    const weatherData = await apiData.json();
 
-  const alertDiv = document.querySelector(".weatherAlert");
-  if (alertDiv) {
-    alertDiv.remove();
+    printCurrentWeather(weatherData);
+    printForecast(weatherData);
+    printCurrentConditions(weatherData);
+    setBackgrounds(weatherData);
+
+    const alertDiv = document.querySelector(".weatherAlert");
+    if (alertDiv) {
+      alertDiv.remove();
+    }
+
+    if (weatherData.alerts.alert[0]) {
+      printAlert(weatherData.alerts.alert[0]);
+    }
+
+    if (!hidden) {
+      invalid.setAttribute("hidden", "hidden");
+    }
+
+    console.log(weatherData);
   }
-
-  if (weatherData.alerts.alert[0]) {
-    printAlert(weatherData.alerts.alert[0]);
-  }
-
-  console.log(weatherData);
 }
 
 const submitBtn = document.querySelector(".submitBtn");
 const userInput = document.querySelector(".userInput");
 submitBtn.addEventListener("click", () => {
-  getWeatherData(userInput.value);
-  userInput.value = "";
+  if (userInput.value) {
+    getWeatherData(userInput.value);
+    userInput.value = "";
+  }
 });
 
 userInput.addEventListener("keypress", (e) => {
