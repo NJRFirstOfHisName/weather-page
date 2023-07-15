@@ -65,7 +65,7 @@ function printCurrentWeather(weatherData) {
 function printForecast(weatherData) {
   const forecastDiv = document.querySelector(".forecast");
   forecastDiv.innerHTML = "<h1>Forecast</h1>";
-  for (let i = 1; i < 3; i += 1) {
+  for (let i = 1; i < 4; i += 1) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "forecastDiv";
     dayDiv.style.display = "grid";
@@ -166,7 +166,7 @@ async function callApi(location) {
   let response;
   try {
     response = await fetch(
-      `https://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=3&aqi=yes&alerts=yes`,
+      `https://api.weatherapi.com/v1/forecast.json?key=84ccd448f00f4d4591a210640231207&q=${location}&days=4&aqi=yes&alerts=yes`,
       { mode: "cors" }
     );
   } catch (error) {
