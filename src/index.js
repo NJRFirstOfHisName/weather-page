@@ -1,4 +1,7 @@
+import format from "date-fns/format";
+import "./style.css";
 // eslint-disable-next-line import/extensions
+import parseISO from "date-fns/parseISO";
 import { weatherConditions } from "./weatherConditions.js";
 
 function findColor(day) {
@@ -40,6 +43,7 @@ function printCurrentWeather(weatherData) {
   const conditionText = document.querySelector(".conditionText");
   const temperature = document.querySelector(".temperature");
   const feelsLike = document.querySelector(".feelsLike");
+  const todayDate = document.querySelector(".todayDate");
 
   city.innerText = weatherData.location.name;
   if (weatherData.location.region) {
@@ -47,6 +51,10 @@ function printCurrentWeather(weatherData) {
   } else {
     stateCountry.innerText = `${weatherData.location.country}`;
   }
+
+  const today = weatherData.location.localtime.slice(0, 10);
+  todayDate.innerText = format(parseISO(today), "eee, MMMM do yyyy");
+
   const localTime = weatherData.location.localtime.slice(-5);
   const hour = localTime.slice(0, 2);
   const minute = localTime.slice(3, 5);
@@ -61,6 +69,7 @@ function printCurrentWeather(weatherData) {
   } else {
     time.innerText = `12:${minute} PM`;
   }
+
   conditionIcon.src = weatherData.current.condition.icon;
   conditionIcon.style.display = "";
   conditionText.innerText = weatherData.current.condition.text;
@@ -84,7 +93,7 @@ function printForecast(weatherData) {
     const dateIcon = document.createElement("div");
     const day = document.createElement("p");
     day.className = "forecastDate";
-    day.innerText = forecastData.date;
+    day.innerText = format(parseISO(forecastData.date), "eee, MMM do");
     dateIcon.appendChild(day);
 
     const conditionIcon = document.createElement("img");
