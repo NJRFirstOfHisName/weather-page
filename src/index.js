@@ -89,7 +89,7 @@ function printCurrentWeather(weatherData) {
 function printForecast(weatherData) {
   const forecastDiv = document.querySelector(".forecast");
   forecastDiv.innerHTML = "<h1>Forecast</h1>";
-  for (let i = 1; i < 4; i += 1) {
+  for (let i = 1; i < 3; i += 1) {
     const dayDiv = document.createElement("div");
     dayDiv.className = "forecastDiv";
     dayDiv.style.display = "grid";
