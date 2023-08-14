@@ -3,9 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- <script src="src/index.js" type="module" defer></script>
-    <script src="src/weatherConditions.js" type="module" defer></script> -->
-    <!-- <link rel="stylesheet" href="style.css" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -28,39 +25,41 @@
           Invalid Location
         </h6>
       </div>
-      <div class="environment">
-        <h1>Conditions</h1>
-        <p class="windSpeed"></p>
-        <p class="humidity"></p>
-        <p class="uvIndex"></p>
-        <p class="airQuality"></p>
-        <p class="pressure"></p>
-        <p class="precipitation"></p>
-      </div>
-      <div class="weather">
-        <h1>Today's Weather</h1>
-        <div class="location">
-          <h2 class="city"></h2>
-          <h2 class="stateCountry"></h2>
-          <h2 class="todayDate"></h2>
-          <h2 class="time"></h2>
+      <div class="weatherReport">
+        <div class="environment">
+          <h1>Conditions</h1>
+          <p class="windSpeed"></p>
+          <p class="humidity"></p>
+          <p class="uvIndex"></p>
+          <p class="airQuality"></p>
+          <p class="pressure"></p>
+          <p class="precipitation"></p>
         </div>
-        <div class="currentWeather">
-          <div class="currentConditions">
-            <img
-              src="/src/image-missing.svg"
-              alt="condition"
-              class="conditionIcon"
-              style="display: none"
-            />
-            <h2 class="conditionText"></h2>
+        <div class="weather">
+          <h1>Today's Weather</h1>
+          <div class="location">
+            <h2 class="city"></h2>
+            <h2 class="stateCountry"></h2>
+            <h2 class="todayDate"></h2>
+            <h2 class="time"></h2>
           </div>
-          <h1 class="temperature"></h1>
-          <h2 class="feelsLike"></h2>
+          <div class="currentWeather">
+            <div class="currentConditions">
+              <img
+                src="/src/image-missing.svg"
+                alt="condition"
+                class="conditionIcon"
+                style="display: none"
+              />
+              <h2 class="conditionText"></h2>
+            </div>
+            <h1 class="temperature"></h1>
+            <h2 class="feelsLike"></h2>
+          </div>
         </div>
-      </div>
-      <div class="forecast">
-        <h1>Forecast</h1>
+        <div class="forecast">
+          <h1>Forecast</h1>
+        </div>
       </div>
       <div class="footer">
         Powered by

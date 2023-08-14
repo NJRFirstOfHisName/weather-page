@@ -7,7 +7,7 @@ export const weatherConditions = [
   {
     code: 1003,
     day: "Partly cloudy",
-    color: "#c5c9a7",
+    color: "#f3f58e",
   },
   {
     code: 1006,

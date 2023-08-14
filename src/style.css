@@ -7,14 +7,14 @@
 
 .container {
   display: grid;
-  grid-template-rows: 100px 1fr 50px;
-  grid-template-areas:
-    "header header header header header header"
-    "left middle middle middle middle right"
-    "footer footer footer footer footer footer";
+  grid-template-rows: 100px 1fr 30px;
   min-height: 100vh;
-  height: 100%;
-  width: 100%;
+}
+
+.weatherReport {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
 }
 
 .environment,
@@ -26,7 +26,6 @@
 }
 
 .header {
-  grid-area: header;
   padding: 20px;
   text-align: center;
   font-size: 35px;
@@ -48,10 +47,6 @@ h1 {
   text-align: center;
 }
 
-.environment {
-  grid-area: left;
-}
-
 .environment,
 .forecast {
   margin: 40px 5px;
@@ -63,7 +58,6 @@ h1 {
 }
 
 .weather {
-  grid-area: middle;
   text-align: center;
 }
 
@@ -77,10 +71,6 @@ h1 {
 
 .alertBtn {
   background-color: rgb(189, 142, 209);
-}
-
-.forecast {
-  grid-area: right;
 }
 
 .forecastDiv {
@@ -97,7 +87,6 @@ h1 {
 }
 
 .footer {
-  grid-area: footer;
   padding: 5px;
   text-align: end;
   position: relative;
@@ -107,18 +96,40 @@ h1 {
 
 @media (max-width: 800px) {
   .container {
-    grid-template-areas:
-      "header header header header header header"
-      "middle middle middle middle middle middle"
-      "left left left left left left"
-      "right right right right right right"
-      "footer footer footer footer footer footer";
     grid-template-rows: auto;
     height: fit-content;
+  }
+
+  .weather {
+    grid-area: weather;
+  }
+
+  .forecast {
+    grid-area: forecast;
+  }
+
+  .environment {
+    grid-area: environment;
+  }
+
+  .weatherReport {
+    grid-template-areas:
+      "weather"
+      "forecast"
+      "environment";
+    grid-template-columns: 1fr;
   }
   .environment,
   .weather,
   .forecast {
     margin: 5px;
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .weatherReport {
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
