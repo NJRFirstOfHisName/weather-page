@@ -136,18 +136,20 @@ function setBackgrounds(weatherData) {
   const weather = document.querySelector(".weather");
   const forecast = document.querySelector(".forecast");
 
+  // Fetches the background color if it's daytime, otherwise sets it to the night color
   let todayColor;
   if (weatherData.current.is_day) {
     todayColor = findColor(weatherData.current.condition.code);
+    container.style.color = "black";
   } else {
     todayColor = "#0b0f38";
     container.style.color = "white";
-
     const forecastDivs = document.querySelectorAll(".forecastDiv");
     forecastDivs.forEach((div) => {
       div.style.color = "black";
     });
   }
+
   container.style.background = todayColor;
   environment.style.background = adjust(todayColor, 50);
   weather.style.background = adjust(todayColor, 70);
